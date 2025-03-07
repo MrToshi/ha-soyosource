@@ -5,7 +5,6 @@ import logging
 from datetime import timedelta
 import aiohttp
 import async_timeout
-import json
 
 from homeassistant.components.sensor import (
     SensorEntity,
@@ -25,6 +24,7 @@ from homeassistant.helpers.update_coordinator import (
     CoordinatorEntity,
     DataUpdateCoordinator,
 )
+from homeassistant.exceptions import ConfigEntryNotReady
 
 from .const import (
     DOMAIN,
@@ -54,10 +54,30 @@ async def async_setup_entry(
 
     async def async_update_data():
         """Fetch data from API endpoint."""
-        async with async_timeout.timeout(10):
-            async with aiohttp.ClientSession() as session:
-                async with session.get(f"http://{host}/data") as resp:
-                    return await resp.json()
+        try:
+            async with async_timeout.timeout(10):
+                async with aiohttp.ClientSession() as session:
+                    async with session.get(f"http://{host}/data") as resp:
+                        if resp.status != 200:
+                            _LOGGER.error(
+                                "Error %d on %s", resp.status, host
+                            )
+                            return None
+                        return await resp.json()
+        except aiohttp.ClientError as err:
+            _LOGGER.error(
+                "Error connecting to Soyosource Controller at %s: %s",
+                host,
+                err,
+            )
+            return None
+        except Exception as err:  # pylint: disable=broad-except
+            _LOGGER.error(
+                "Error updating Soyosource Controller at %s: %s",
+                host,
+                err,
+            )
+            return None
 
     coordinator = DataUpdateCoordinator(
         hass,
@@ -67,7 +87,13 @@ async def async_setup_entry(
         update_interval=timedelta(seconds=DEFAULT_SCAN_INTERVAL),
     )
 
+    # Fetch initial data so we have data when entities subscribe
     await coordinator.async_config_entry_first_refresh()
+
+    if not coordinator.last_update_success:
+        raise ConfigEntryNotReady(
+            f"Failed to fetch initial data from Soyosource Controller at {host}"
+        )
 
     sensors = [
         SoyosourceSensor(
@@ -152,9 +178,19 @@ class SoyosourceSensor(CoordinatorEntity, SensorEntity):
     @property
     def native_value(self):
         """Return the state of the sensor."""
+        if self.coordinator.data is None:
+            return None
+            
         try:
-            return float(self.coordinator.data[self._data_key].strip("S>"))
-        except (KeyError, ValueError):
+            value = self.coordinator.data.get(self._data_key)
+            if value is None:
+                return None
+                
+            # Entferne "S>" wenn vorhanden und konvertiere zu float
+            if isinstance(value, str):
+                value = value.strip("S>")
+            return float(value)
+        except (KeyError, ValueError, TypeError):
             return None
 
     @property
@@ -170,4 +206,9 @@ class SoyosourceSensor(CoordinatorEntity, SensorEntity):
     @property
     def state_class(self):
         """Return the state class."""
-        return SensorStateClass.MEASUREMENT 
+        return SensorStateClass.MEASUREMENT
+
+    @property
+    def available(self) -> bool:
+        """Return if entity is available."""
+        return self.coordinator.last_update_success and self.coordinator.data is not None 
