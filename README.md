@@ -3,6 +3,9 @@ für https://github.com/KlausLi/Esp-Soyosource-Controller ( ESP Herzschlag )
 
 Diese Integration ermöglicht die Einbindung eines Soyosource Controllers in Home Assistant.
 
+![image](https://github.com/user-attachments/assets/e0f1a328-5f6f-4fd4-adb4-f9f76c93b519)
+![image](https://github.com/user-attachments/assets/6c9ca473-e40a-46ce-b080-c1b494e78f49)
+
 ## Features
 
 - Abfrage und Anzeige von Leistungsdaten des Soyosource Controllers
@@ -57,5 +60,6 @@ Falls Probleme auftreten:
 
 Beiträge sind willkommen! Bitte erstellen Sie einen Pull Request oder ein Issue. 
 
-![image](https://github.com/user-attachments/assets/e0f1a328-5f6f-4fd4-adb4-f9f76c93b519)
+
+
 
