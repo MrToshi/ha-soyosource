@@ -55,6 +55,4 @@ Falls Probleme auftreten:
 2. Überprüfen Sie die IP-Adresse
 3. Schauen Sie in die Home Assistant Logs
 
-## Mitwirken
-
 Beiträge sind willkommen! Bitte erstellen Sie einen Pull Request oder ein Issue. 
