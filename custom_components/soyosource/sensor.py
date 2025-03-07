@@ -30,6 +30,7 @@ from homeassistant.exceptions import ConfigEntryNotReady
 from .const import (
     DOMAIN,
     DEFAULT_SCAN_INTERVAL,
+    CONF_SCAN_INTERVAL,
     SENSOR_L1L2L3,
     SENSOR_CONTROLLER_NAME,
     SENSOR_START_TIME,
@@ -52,6 +53,9 @@ async def async_setup_entry(
 ) -> None:
     """Set up the Soyosource Controller sensors."""
     host = config_entry.data[CONF_HOST]
+    scan_interval = config_entry.data.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL)
+    
+    _LOGGER.debug("Setting up Soyosource Controller with scan interval: %s seconds", scan_interval)
 
     async def async_update_data():
         """Fetch data from API endpoint."""
@@ -97,7 +101,7 @@ async def async_setup_entry(
         _LOGGER,
         name="soyosource_controller",
         update_method=async_update_data,
-        update_interval=timedelta(seconds=DEFAULT_SCAN_INTERVAL),
+        update_interval=timedelta(seconds=scan_interval),
     )
 
     # Fetch initial data so we have data when entities subscribe

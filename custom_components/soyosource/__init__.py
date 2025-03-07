@@ -10,7 +10,7 @@ from homeassistant.const import Platform, CONF_HOST
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady
 
-from .const import DOMAIN
+from .const import DOMAIN, CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL
 
 PLATFORMS: list[Platform] = [Platform.SENSOR]
 _LOGGER = logging.getLogger(__name__)
@@ -40,6 +40,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         raise ConfigEntryNotReady(
             f"Error connecting to the Soyosource Controller at {entry.data[CONF_HOST]}: {err}"
         ) from err
+    
+    # Stelle sicher, dass CONF_SCAN_INTERVAL in den Daten vorhanden ist
+    if CONF_SCAN_INTERVAL not in entry.data:
+        data = {**entry.data, CONF_SCAN_INTERVAL: DEFAULT_SCAN_INTERVAL}
+        hass.config_entries.async_update_entry(entry, data=data)
     
     hass.data[DOMAIN][entry.entry_id] = entry.data
     

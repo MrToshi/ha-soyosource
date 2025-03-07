@@ -5,6 +5,7 @@ DEFAULT_HOST = "192.168.1.44"
 DEFAULT_SCAN_INTERVAL = 30
 
 CONF_HOST = "host"
+CONF_SCAN_INTERVAL = "scan_interval"
 
 # Sensor types
 SENSOR_L1L2L3 = "l1l2l3"
