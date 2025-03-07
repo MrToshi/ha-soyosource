@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import logging
 import aiohttp
+import json
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform, CONF_HOST
@@ -26,14 +27,18 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
                     raise ConfigEntryNotReady(
                         f"Error connecting to the Soyosource Controller at {entry.data[CONF_HOST]}"
                     )
-                await response.json()  # Überprüfe, ob gültige JSON-Daten zurückgegeben werden
+                
+                # Lese die Antwort als Text und konvertiere manuell zu JSON
+                text_response = await response.text()
+                try:
+                    json_data = json.loads(text_response)
+                except json.JSONDecodeError as err:
+                    raise ConfigEntryNotReady(
+                        f"Invalid JSON data received from the Soyosource Controller at {entry.data[CONF_HOST]}: {err}"
+                    ) from err
     except aiohttp.ClientError as err:
         raise ConfigEntryNotReady(
             f"Error connecting to the Soyosource Controller at {entry.data[CONF_HOST]}: {err}"
-        ) from err
-    except ValueError as err:
-        raise ConfigEntryNotReady(
-            f"Invalid data received from the Soyosource Controller at {entry.data[CONF_HOST]}: {err}"
         ) from err
     
     hass.data[DOMAIN][entry.entry_id] = entry.data

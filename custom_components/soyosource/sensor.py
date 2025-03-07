@@ -5,6 +5,7 @@ import logging
 from datetime import timedelta
 import aiohttp
 import async_timeout
+import json
 
 from homeassistant.components.sensor import (
     SensorEntity,
@@ -63,7 +64,19 @@ async def async_setup_entry(
                                 "Error %d on %s", resp.status, host
                             )
                             return None
-                        return await resp.json()
+                        
+                        # Lese die Antwort als Text und konvertiere manuell zu JSON
+                        text_response = await resp.text()
+                        try:
+                            return json.loads(text_response)
+                        except json.JSONDecodeError as err:
+                            _LOGGER.error(
+                                "Error decoding JSON from %s: %s - Raw response: %s",
+                                host,
+                                err,
+                                text_response,
+                            )
+                            return None
         except aiohttp.ClientError as err:
             _LOGGER.error(
                 "Error connecting to Soyosource Controller at %s: %s",
