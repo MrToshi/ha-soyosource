@@ -41,9 +41,9 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 {
                     vol.Required(CONF_HOST, default=DEFAULT_HOST): str,
                     vol.Optional(CONF_SCAN_INTERVAL, default=DEFAULT_SCAN_INTERVAL): vol.All(
-                        vol.Coerce(int), vol.Range(min=10, max=3600)
+                        vol.Coerce(int), vol.Range(min=1, max=3600)
                     ),
                 }
             ),
             errors=errors,
-        ) 
+        )

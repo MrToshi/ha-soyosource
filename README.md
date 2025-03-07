@@ -6,7 +6,7 @@ Diese Integration ermöglicht die Einbindung eines Soyosource Controllers in Hom
 
 - Abfrage und Anzeige von Leistungsdaten des Soyosource Controllers
 - Konfigurierbare IP-Adresse
-- Konfigurierbare Aktualisierungszeit (10-3600 Sekunden)
+- Konfigurierbare Aktualisierungszeit (1-3600 Sekunden)
 - Folgende Sensoren werden erstellt:
   - L1L2L3 (Leistung in Watt)
   - Max Power (Maximale Leistung in Watt)
