@@ -1,0 +1,13 @@
+{
+  "domain": "soyosource",
+  "name": "Soyosource Controller",
+  "documentation": "https://github.com/yourusername/ha-soyosource",
+  "issue_tracker": "https://github.com/yourusername/ha-soyosource/issues",
+  "dependencies": [],
+  "codeowners": ["@yourusername"],
+  "requirements": ["aiohttp"],
+  "iot_class": "local_polling",
+  "version": "1.0.0",
+  "config_flow": true,
+  "homeassistant": "2023.8.0"
+} 
