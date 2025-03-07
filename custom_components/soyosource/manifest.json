@@ -1,10 +1,10 @@
 {
   "domain": "soyosource",
   "name": "Soyosource Controller",
-  "documentation": "https://github.com/yourusername/ha-soyosource",
-  "issue_tracker": "https://github.com/yourusername/ha-soyosource/issues",
+  "documentation": "https://github.com/MrToshi/ha-soyosource",
+  "issue_tracker": "https://github.com/MrToshi/ha-soyosource/issues",
   "dependencies": [],
-  "codeowners": ["@yourusername"],
+  "codeowners": ["@MrToshi"],
   "requirements": ["aiohttp"],
   "iot_class": "local_polling",
   "version": "1.0.0",

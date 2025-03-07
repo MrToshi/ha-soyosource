@@ -38,15 +38,15 @@ Diese Integration ermöglicht die Einbindung eines Soyosource Controllers in Hom
 
 ***
 
-[releases-shield]: https://img.shields.io/github/release/yourusername/ha-soyosource.svg
-[releases]: https://github.com/yourusername/ha-soyosource/releases
-[commits-shield]: https://img.shields.io/github/commit-activity/y/yourusername/ha-soyosource.svg
-[commits]: https://github.com/yourusername/ha-soyosource/commits/main
+[releases-shield]: https://img.shields.io/github/release/MrToshi/ha-soyosource.svg
+[releases]: https://github.com/MrToshi/ha-soyosource/releases
+[commits-shield]: https://img.shields.io/github/commit-activity/y/MrToshi/ha-soyosource.svg
+[commits]: https://github.com/MrToshi/ha-soyosource/commits/main
 [hacsbadge]: https://img.shields.io/badge/HACS-Custom-orange.svg
 [hacs]: https://github.com/hacs/integration
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2024.svg
 [buymecoffeebadge]: https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg
-[buymecoffee]: https://www.buymeacoffee.com/yourusername
-[license-shield]: https://img.shields.io/github/license/yourusername/ha-soyosource.svg
-[license]: https://github.com/yourusername/ha-soyosource/blob/main/LICENSE
-[user_profile]: https://github.com/yourusername 
+[buymecoffee]: https://www.buymeacoffee.com/MrToshi
+[license-shield]: https://img.shields.io/github/license/MrToshi/ha-soyosource.svg
+[license]: https://github.com/MrToshi/ha-soyosource/blob/main/LICENSE
+[user_profile]: https://github.com/MrToshi 
