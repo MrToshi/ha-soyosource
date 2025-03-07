@@ -56,3 +56,6 @@ Falls Probleme auftreten:
 3. Schauen Sie in die Home Assistant Logs
 
 Beiträge sind willkommen! Bitte erstellen Sie einen Pull Request oder ein Issue. 
+
+![image](https://github.com/user-attachments/assets/e0f1a328-5f6f-4fd4-adb4-f9f76c93b519)
+
